@@ -11,6 +11,9 @@ set -e
 
 [ `pwd` = "$HOME" ] || die "Please run this script from your home directory!"
 
+git submodule init
+git submodule update
+
 # Install OMZ
 if ! [ -d "${HOME}/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -25,5 +28,9 @@ for f in .zshrc .zshenv .vim .tmux; do
   src="${dot_files_dir}/${f}"
   dst="${HOME}/${f}"
   ln -s $src $dst
-  [ -f "${dst}/bootstrap.sh" ] && "${dst}/bootstrap.sh"
+  if [ -f "${dst}/bootstrap.sh" ]; then
+    script="${dst}/bootstrap.sh"
+    echo "Running ${script}..."
+    $script
+  fi
 done
