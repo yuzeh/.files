@@ -11,10 +11,10 @@ set -e
 
 [ `pwd` = "$HOME" ] || die "Please run this script from your home directory!"
 
-pushd $work_dir
+cd $work_dir
 git submodule init
 git submodule update
-popd
+cd
 
 # Install OMZ
 if ! [ -d "${HOME}/.oh-my-zsh" ]; then
