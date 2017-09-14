@@ -5,14 +5,16 @@ die() {
   exit 1
 }
 
-dot_files_dir=`dirname $0`
+work_dir=`dirname $0`
 
 set -e
 
 [ `pwd` = "$HOME" ] || die "Please run this script from your home directory!"
 
+pushd $work_dir
 git submodule init
 git submodule update
+popd
 
 # Install OMZ
 if ! [ -d "${HOME}/.oh-my-zsh" ]; then
@@ -25,7 +27,7 @@ for f in .zshrc .zshenv .vim .vimrc .tmux .tmux.conf; do
 done
 
 for f in .zshrc .zshenv .vim .tmux; do
-  src="${dot_files_dir}/${f}"
+  src="${work_dir}/${f}"
   dst="${HOME}/${f}"
   ln -s $src $dst
   if [ -f "${dst}/bootstrap.sh" ]; then
