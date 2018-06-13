@@ -11,5 +11,6 @@ You'll want to install the following before doing this:
 - vim
 - zsh
 - tmux
+- cmake
 
 The tmux bootstrap step may fail because of lack of permissions. Just edit the script locally before running the top-level bootstrap script.
